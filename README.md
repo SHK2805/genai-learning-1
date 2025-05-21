@@ -1,1 +1,1 @@
-# genai-learning-1
+# GenAI Learning 
