@@ -1,3 +1,4 @@
+from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
@@ -25,8 +26,11 @@ prompt_capital_of_france = ChatPromptTemplate(
     ]
 )
 
+# output parser
+output_parser = StrOutputParser()
+
 # chain
-chain_capital_of_france = prompt_capital_of_france | llm
+chain_capital_of_france = prompt_capital_of_france | llm | output_parser
 
 # invoke
 response_capital_of_france = chain_capital_of_france.invoke(
@@ -34,4 +38,4 @@ response_capital_of_france = chain_capital_of_france.invoke(
 )
 
 # print the response
-print(response_capital_of_france.content)
+print(response_capital_of_france)
