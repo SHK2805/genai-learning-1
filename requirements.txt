@@ -3,3 +3,5 @@ python-dotenv
 langchain-openai
 langchain-core
 langchain-community
+faiss-cpu
+bs4
