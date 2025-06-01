@@ -3,5 +3,11 @@ python-dotenv
 langchain-openai
 langchain-core
 langchain-community
+langchain-huggingface
 faiss-cpu
 bs4
+pypdf
+arxiv
+pymupdf
+wikipedia
+lxml
