@@ -1,5 +1,6 @@
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.chat_history import (
     BaseChatMessageHistory,
     InMemoryChatMessageHistory,
@@ -28,8 +29,39 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 
 def get_chatbot() -> RunnableWithMessageHistory:
     """Get a chatbot instance with message history for a session."""
-    return RunnableWithMessageHistory(model, get_session_history)
+    return RunnableWithMessageHistory(chain, get_session_history, input_messages_key="messages")
 
+prompt = ChatPromptTemplate.from_messages(
+    [
+        SystemMessage(content="You are a helpful assistant. Answer all questions to the best of your ability."),
+        MessagesPlaceholder(variable_name="messages")
+    ]
+)
+
+chain = prompt | model
+response = chain.invoke({"messages" : [HumanMessage(content="Hello, how are you?")]})
+print("Response:", response.content)
+
+
+config1 = {"configurable": {"session_id": "session1"}}
+bot = get_chatbot()
+response = bot.invoke({
+    "messages": [
+        AIMessage(content=response.content),
+        HumanMessage(content="My name is Bob and I am a Data Scientist")]
+    },
+    config=config1
+)
+
+response = bot.invoke({
+    "messages": [
+        AIMessage(content=response.content),
+        HumanMessage(content="I forgot, what is my name?")]
+    },
+    config=config1
+)
+
+print("Response:", response.content)
 
 if __name__ == "__main__":
 
