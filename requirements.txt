@@ -1,5 +1,7 @@
 langchain
 python-dotenv
+langchain==0.0.135
+langchain-tools
 langchain-openai
 langchain-groq
 langchain-core
@@ -12,3 +14,8 @@ arxiv
 pymupdf
 wikipedia
 lxml
+
+pandas
+langchain-text-splitters
+langsmith
+langchain-experimental
